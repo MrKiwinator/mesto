@@ -7,7 +7,7 @@
     border-radius: 2px;
     box-sizing: border-box;
     cursor: pointer;
-    background-image: url("/images/plus.svg");
+    background-image: url("../../../images/plus.svg");
     background-size: 22px;
     background-repeat: no-repeat;
     background-position: center;
