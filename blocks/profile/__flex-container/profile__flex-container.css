@@ -4,6 +4,12 @@
     column-gap: 18px;
 }
 
+@media screen and (max-width: 799px) {
+    .profile__flex-container {
+        justify-content: center;
+    }
+}
+
 @media screen and (max-width: 519px) {
     .profile__flex-container {
         column-gap: 10px;

@@ -3,7 +3,14 @@
     max-width: 880px;
     margin: 0 auto;
     border-bottom: 1px solid rgba(84, 84, 84, 0.7);
-    padding: 41px 48px 41px;
+    padding: 41px 0 41px;
+    transition: all .3s;
+}
+
+@media screen and (max-width: 977px) {
+    .header {
+        padding-left: 27px;
+    }
 }
 
 @media screen and (max-width: 519px) {

@@ -18,12 +18,12 @@
             <img src="./images/avatar.jpg" alt="Аватар пользователя" class="profile__avatar">
             <div class="profile__info">
                 <div class="profile__flex-container">
-                    <p class="profile__name">Жак-Ив Кусто</p>
-                    <div class="profile__edit-button"></div>
+                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <button class="profile__edit-button" type="menu" aria-label="Редактировать профиль"></button>
                 </div>
                 <p class="profile__status">Исследователь океана</p>
             </div>
-            <div class="profile__add-button"></div>
+            <button class="profile__add-button" type="button" aria-label="Добавить изображение"></button>
         </section>
 
         <section class="elements">
@@ -31,42 +31,42 @@
                 <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="element__picture">
                 <div class="element__note">
                     <h2 class="element__place">Карачаевск</h2>
-                    <div class="element__like"></div>
+                    <button aria-label="Нравится" class="element__like"></button>
                 </div>
             </article>
             <article class="element">
                 <img src="./images/elbrus.jpg" alt="Эльбрус" class="element__picture">
                 <div class="element__note">
                     <h2 class="element__place">Гора Эльбрус</h2>
-                    <div class="element__like"></div>
+                    <button aria-label="Нравится" class="element__like"></button>
                 </div>
             </article>
             <article class="element">
                 <img src="./images/dombai.jpg" alt="Домбай" class="element__picture">
                 <div class="element__note">
                     <h2 class="element__place">Домбай</h2>
-                    <div class="element__like"></div>
+                    <button aria-label="Нравится" class="element__like"></button>
                 </div>
             </article>
             <article class="element">
                 <img src="./images/elbrus-2.jpg" alt="Эльбрус" class="element__picture">
                 <div class="element__note">
                     <h2 class="element__place">Гора Эльбрус</h2>
-                    <div class="element__like"></div>
+                    <button aria-label="Нравится" class="element__like"></button>
                 </div>
             </article>
             <article class="element">
                 <img src="./images/dombai-2.jpg" alt="Домбай" class="element__picture">
                 <div class="element__note">
                     <h2 class="element__place">Домбай</h2>
-                    <div class="element__like"></div>
+                    <button aria-label="Нравится" class="element__like"></button>
                 </div>
             </article>
             <article class="element">
                 <img src="./images/karachaevo-cherkesiya.jpg" alt="Карачаево-Черкесия" class="element__picture">
                 <div class="element__note">
                     <h2 class="element__place">Карачаево-Черкесия</h2>
-                    <div class="element__like"></div>
+                    <button aria-label="Нравится" class="element__like"></button>
                 </div>
             </article>
         </section>
@@ -74,18 +74,18 @@
     </main>
 
     <footer class="footer">
-        <p class="copyright">&copy; 2020 Mesto Russia</p>
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
     <div class="popup">
         <div class="popup__container">
-            <form class="popup__form">
+            <form class="popup__form" name="user-info">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input type="text" id="username" class="popup__input">
-                <input type="text" id="user-info" class="popup__input">
-                <input type="submit" value="Сохранить" class="popup__submit">
+                <input type="text" name="user-name" class="popup__input popup__username" required>
+                <input type="text" name="user-status" class="popup__input popup__userstatus" required>
+                <button type="submit" class="popup__submit">Сохранить</button>
             </form>
-            <div class="popup__close-btn"></div>
+            <button aria-label="Закрыть" type="button" class="popup__close-btn"></button>
         </div>
     </div>
 
