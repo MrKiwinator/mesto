@@ -10,18 +10,17 @@
     transition: all .3s;
 }
 
-@media screen and (max-width: 799px) {
+@media screen and (max-width: 977px) {
     .profile__status {
-        text-align: center;
-        margin-bottom: 36px;
-    }
-}
-
-@media screen and (max-width: 519px) {
-    .profile__status {
-        max-width: 265px;
         font-size: 14px;
         font-weight: 400;
         line-height: 17px;
+    }
+}
+
+@media screen and (max-width: 799px) {
+    .profile__status {
+        margin: 0 auto 36px;
+        max-width: 260px;
     }
 }

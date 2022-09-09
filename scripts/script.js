@@ -14,8 +14,8 @@ const addBtn = profile.querySelector(".profile__add-button");
 
 const popup = document.querySelector(".popup");
 const formElement = popup.querySelector(".popup__form");
-const userNameInput = popup.querySelector(".popup__username");
-const userStatusInput = popup.querySelector(".popup__userstatus");
+const userNameInput = popup.querySelector(".popup__input_type_username");
+const userStatusInput = popup.querySelector(".popup__input_type_userstatus");
 const popupCloseBtn = popup.querySelector(".popup__close-btn");
 
 // Popup window:

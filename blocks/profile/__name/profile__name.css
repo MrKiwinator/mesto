@@ -11,8 +11,10 @@
     transition: all .3s;
 }
 
-@media screen and (max-width: 799px) {
+@media screen and (max-width: 977px) {
     .profile__name {
+        font-size: 27px;
+        max-width: 330px;
         padding-bottom: 14px;
     }
 }
@@ -22,6 +24,5 @@
         font-size: 27px;
         font-weight: 500;
         line-height: 33px;
-        max-width: 265px;
     }
 }
