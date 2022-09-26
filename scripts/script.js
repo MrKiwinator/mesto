@@ -20,7 +20,7 @@ const closePopup = (popup) => {
 const profileName = profile.querySelector(".profile__name");
 const profileStatus = profile.querySelector(".profile__status");
 
-const editBtn = profile.querySelector(".profile__edit-button");
+const buttonEdit = profile.querySelector(".profile__edit-button");
 
 const popupEdit = document.querySelector(".edit-profile");
 
@@ -36,7 +36,7 @@ function openEditPopup() {
     userStatusInput.value = profileStatus.textContent;
 }
 
-editBtn.addEventListener("click", openEditPopup);
+buttonEdit.addEventListener("click", openEditPopup);
 
 const closeEditPopup = () => {
     closePopup(popupEdit);
@@ -57,7 +57,7 @@ popupEditForm.addEventListener("submit", submitEditPopup);
 
 // Add picture popup:
 
-const addBtn = profile.querySelector(".profile__add-button");
+const buttonAdd = profile.querySelector(".profile__add-button");
 
 const popupAddCard = document.querySelector(".add-picture");
 const popupCardCloseBtn = popupAddCard.querySelector(".popup__close-btn");
@@ -69,11 +69,10 @@ const pictureLink = popupAddCard.querySelector(".popup__input_type_picture-link"
 function openAddCardPopup() {
     openPopup(popupAddCard);
 
-    pictureName.value = "";
-    pictureLink.value = "";
+    popupAddCardForm.reset();
 }
 
-addBtn.addEventListener("click", openAddCardPopup);
+buttonAdd.addEventListener("click", openAddCardPopup);
 
 const closeAddCardPopup = () => {
     closePopup(popupAddCard);
@@ -84,7 +83,7 @@ popupCardCloseBtn.addEventListener("click", closeAddCardPopup);
 const cardTemplate = document.querySelector("#card-template").content;
 const cardElements = document.querySelector(".elements");
 
-function submitCard(evt) {
+function createCard(evt) {
     evt.preventDefault();
 
     const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
@@ -99,7 +98,7 @@ function submitCard(evt) {
     closeAddCardPopup();
 }
 
-popupAddCardForm.addEventListener("submit", submitCard);
+popupAddCardForm.addEventListener("submit", createCard);
 
 // Initial cards creation: 
 
@@ -178,7 +177,7 @@ cardElements.addEventListener("click", function(event) {
     const eventTarget = event.target;
     
     if (eventTarget.classList.contains("element__delete")) {
-        eventTarget.parentElement.remove();
+        eventTarget.closest(".element").remove();
     }
 });
 
