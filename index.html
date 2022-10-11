@@ -36,10 +36,19 @@
 
     <div class="popup edit-profile">
         <div class="popup__container">
-            <form class="popup__form" name="user_info">
+            <form class="popup__form" name="user_info" novalidate>
                 <h3 class="popup__title">Редактировать профиль</h3>
-                <input type="text" name="user_name" class="popup__input popup__input_type_username" required>
-                <input type="text" name="user_status" class="popup__input popup__input_type_userstatus" required>
+                
+                <label class="popup__input-field">
+                    <input id="username-input" type="text" name="user_name" class="popup__input popup__input_type_username" required minlength="2" maxlength="40">
+                    <span class="popup__input-error username-input-error"></span>
+                </label>
+
+                <label class="popup__input-field">
+                    <input id="user-status-input" type="text" name="user_status" class="popup__input popup__input_type_userstatus" required minlength="2" maxlength="200">
+                    <span class="popup__input-error user-status-input-error"></span>
+                </label>
+
                 <button type="submit" class="popup__submit">Сохранить</button>
             </form>
             <button aria-label="Закрыть" type="button" class="popup__close-btn"></button>
@@ -50,8 +59,17 @@
         <div class="popup__container">
             <form class="popup__form" name="card-info">
                 <h3 class="popup__title">Новое место</h3>
-                <input type="text" name="user_name" placeholder="Название" class="popup__input popup__input_type_picture-name" required>
-                <input type="text" name="user_status" placeholder="Ссылка на картинку" class="popup__input popup__input_type_picture-link" required>
+
+                <label class="popup__input-field">
+                    <input id="picture-name-input" type="text" name="user_name" placeholder="Название" class="popup__input popup__input_type_picture-name" required minlength="2" maxlength="30">
+                    <span class="popup__input-error picture-name-input-error"></span>
+                </label>
+                
+                <label class="popup__input-field">
+                    <input id="picture-link-input" type="url" name="user_status" placeholder="Ссылка на картинку" class="popup__input popup__input_type_picture-link" required>
+                    <span class="popup__input-error picture-link-input-error"></span>
+                </label>
+                
                 <button type="submit" class="popup__submit">Сохранить</button>
             </form>
             <button aria-label="Закрыть" type="button" class="popup__close-btn"></button>
@@ -79,6 +97,7 @@
     </template>
 
     <script src="./scripts/cards.js"></script>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/script.js"></script>
 </body>
 </html>

@@ -40,19 +40,39 @@ const cardImages = document.querySelectorAll(".element__picture");
 
 // FUNCTIONS:
 
-// Opening and closing popup:
+// Opening popup:
 
 const openPopup = (popup) => {
     popup.classList.add("popup_opened");
 }
 
+// Closing popup:
+
 const closePopup = (popup) => {
     popup.classList.remove("popup_opened");
 }
 
+const closePopupOnEsc = (popup) => {
+    document.addEventListener("keydown", (evt) => {
+        if (evt.keyCode === 27) {
+            closePopup(popup);
+        }
+    });
+}
+
+const closePopupOnOverlay = (popup) => {
+    popup.addEventListener("mousedown", (evt) => {
+        const eventTarget = evt.target;
+
+        if (eventTarget.classList.contains("popup")) {
+            closePopup(popup);
+        }
+    });
+}
+
 // Edit profile popup:
 
-function openEditPopup() {
+const openEditPopup = () => {
     openPopup(popupEdit);
 
     userNameInput.value = profileName.textContent;
@@ -66,8 +86,10 @@ const closeEditPopup = () => {
 }
 
 popupEditCloseBtn.addEventListener("click", closeEditPopup);
+closePopupOnEsc(popupEdit);
+closePopupOnOverlay(popupEdit);
 
-function submitEditPopup(evt) {
+const submitEditPopup = (evt) => {
     evt.preventDefault();
 
     profileName.textContent = userNameInput.value;
@@ -80,7 +102,7 @@ popupEditForm.addEventListener("submit", submitEditPopup);
 
 // Add picture popup:
 
-function openAddCardPopup() {
+const openAddCardPopup = () => {
     openPopup(popupAddCard);
 
     popupAddCardForm.reset();
@@ -91,6 +113,10 @@ buttonAdd.addEventListener("click", openAddCardPopup);
 const closeAddCardPopup = () => {
     closePopup(popupAddCard);
 }
+
+popupCardCloseBtn.addEventListener("click", closeAddCardPopup);
+closePopupOnEsc(popupAddCard);
+closePopupOnOverlay(popupAddCard);
 
 // Card Like:
 
@@ -108,9 +134,9 @@ const handleDeleteCard = (evt) => {
     eventTarget.closest(".element").remove();
 };
 
-popupCardCloseBtn.addEventListener("click", closeAddCardPopup);
+// Card creation:
 
-function createCard(name, link) {
+const createCard = (name, link) => {
     const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
 
     const pictureElement = cardElement.querySelector(".element__picture");
@@ -131,7 +157,7 @@ function createCard(name, link) {
     return cardElement;
 }
 
-function handleCardFormSubmit(evt) {
+const handleCardFormSubmit = (evt) => {
     evt.preventDefault();
 
     const card = createCard(pictureName.value, pictureLink.value);
@@ -169,6 +195,5 @@ const closeZoomCardPopup = () => {
 }
 
 popupZoomCardCloseBtn.addEventListener("click", closeZoomCardPopup);
-
-
-
+closePopupOnEsc(popupZoomCard);
+closePopupOnOverlay(popupZoomCard);
