@@ -44,30 +44,43 @@ const cardImages = document.querySelectorAll(".element__picture");
 
 const openPopup = (popup) => {
     popup.classList.add("popup_opened");
+
+    document.addEventListener('keydown', closeByEsc);
+    document.addEventListener('mousedown', closeByOverlay);
+    document.addEventListener('click', closeByButton);
 }
 
 // Closing popup:
 
-const closePopup = (popup) => {
+const closeOpenedPopup = (popup) => {
     popup.classList.remove("popup_opened");
+
+    document.removeEventListener('keydown', closeByEsc);
+    document.removeEventListener('mousedown', closeByOverlay);
+    document.removeEventListener('click', closeByButton);
 }
 
-const closePopupOnEsc = (popup) => {
-    document.addEventListener("keydown", (evt) => {
-        if (evt.keyCode === 27) {
-            closePopup(popup);
-        }
-    });
+const closePopup = () => {
+    const openedPopup = document.querySelector('.popup_opened');
+    closeOpenedPopup(openedPopup); 
 }
 
-const closePopupOnOverlay = (popup) => {
-    popup.addEventListener("mousedown", (evt) => {
-        const eventTarget = evt.target;
+const closeByEsc = (evt) => {
+    if (evt.key === "Escape") {
+        closePopup();
+    }
+}  
 
-        if (eventTarget.classList.contains("popup")) {
-            closePopup(popup);
-        }
-    });
+const closeByOverlay = (evt) => {
+    if (evt.target.classList.contains("popup")) {
+        closePopup();
+    }
+}
+
+const closeByButton = (evt) => {
+    if (evt.target.classList.contains("popup__close-btn")) {
+        closePopup();
+    }
 }
 
 // Edit profile popup:
@@ -77,17 +90,17 @@ const openEditPopup = () => {
 
     userNameInput.value = profileName.textContent;
     userStatusInput.value = profileStatus.textContent;
-}
 
-buttonEdit.addEventListener("click", openEditPopup);
+    document.addEventListener('submit', submitEditPopup);
+}
 
 const closeEditPopup = () => {
-    closePopup(popupEdit);
+    closeOpenedPopup(popupEdit);
+
+    buttonEdit.addEventListener("click", openEditPopup);
 }
 
-popupEditCloseBtn.addEventListener("click", closeEditPopup);
-closePopupOnEsc(popupEdit);
-closePopupOnOverlay(popupEdit);
+closeEditPopup();
 
 const submitEditPopup = (evt) => {
     evt.preventDefault();
@@ -95,10 +108,8 @@ const submitEditPopup = (evt) => {
     profileName.textContent = userNameInput.value;
     profileStatus.textContent = userStatusInput.value;
 
-    closePopup(popupEdit);
+    closeOpenedPopup(popupEdit);
 }
-
-popupEditForm.addEventListener("submit", submitEditPopup);
 
 // Add picture popup:
 
@@ -106,17 +117,17 @@ const openAddCardPopup = () => {
     openPopup(popupAddCard);
 
     popupAddCardForm.reset();
-}
 
-buttonAdd.addEventListener("click", openAddCardPopup);
+    popupAddCardForm.addEventListener("submit", handleCardFormSubmit);
+}
 
 const closeAddCardPopup = () => {
-    closePopup(popupAddCard);
+    closeOpenedPopup(popupAddCard);
+
+    buttonAdd.addEventListener("click", openAddCardPopup);
 }
 
-popupCardCloseBtn.addEventListener("click", closeAddCardPopup);
-closePopupOnEsc(popupAddCard);
-closePopupOnOverlay(popupAddCard);
+closeAddCardPopup();
 
 // Card Like:
 
@@ -167,8 +178,6 @@ const handleCardFormSubmit = (evt) => {
     closeAddCardPopup();
 }
 
-popupAddCardForm.addEventListener("submit", handleCardFormSubmit);
-
 // Initial cards creation: 
 
 initialCards.forEach(function(item) {
@@ -191,9 +200,5 @@ const handlePreviewPicture = (name, link) => {
 }
 
 const closeZoomCardPopup = () => {
-    closePopup(popupZoomCard);
+    closeOpenedPopup(popupZoomCard);
 }
-
-popupZoomCardCloseBtn.addEventListener("click", closeZoomCardPopup);
-closePopupOnEsc(popupZoomCard);
-closePopupOnOverlay(popupZoomCard);

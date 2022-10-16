@@ -1,17 +1,15 @@
 .popup__input-error {
     display: inline-block;
     max-width: 358px;
-    position: absolute;
+    min-height: 30px;
     opacity: 0;
-    top: 32px;
+    position: absolute;
+    top: 30px;
     left: 0;
     color: rgba(255, 0, 0, 1);
     font-size: 12px;
     font-weight: 400;
     line-height: 15px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
     transition: .3s;
 }
 
