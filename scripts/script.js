@@ -25,10 +25,10 @@ const buttonAdd = profile.querySelector(".profile__add-button");
 const popupAddCard = document.querySelector(".add-picture");
 const popupCardCloseBtn = popupAddCard.querySelector(".popup__close-btn");
 const popupAddCardForm = popupAddCard.querySelector(".popup__form");
+const popupSubmitCardForm = popupAddCard.querySelector(".popup__submit");
 
 const pictureName = popupAddCard.querySelector(".popup__input_type_picture-name");
 const pictureLink = popupAddCard.querySelector(".popup__input_type_picture-link");
-
 
 const cardTemplate = document.querySelector("#card-template").content;
 const cardContainer = document.querySelector(".elements");
@@ -44,43 +44,33 @@ const cardImages = document.querySelectorAll(".element__picture");
 
 const openPopup = (popup) => {
     popup.classList.add("popup_opened");
-
+    
     document.addEventListener('keydown', closeByEsc);
-    document.addEventListener('mousedown', closeByOverlay);
-    document.addEventListener('click', closeByButton);
 }
 
 // Closing popup:
 
-const closeOpenedPopup = (popup) => {
+const closePopup = (popup) => {
     popup.classList.remove("popup_opened");
-
+   
     document.removeEventListener('keydown', closeByEsc);
-    document.removeEventListener('mousedown', closeByOverlay);
-    document.removeEventListener('click', closeByButton);
-}
-
-const closePopup = () => {
-    const openedPopup = document.querySelector('.popup_opened');
-    closeOpenedPopup(openedPopup); 
 }
 
 const closeByEsc = (evt) => {
     if (evt.key === "Escape") {
-        closePopup();
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup);
     }
 }  
 
-const closeByOverlay = (evt) => {
-    if (evt.target.classList.contains("popup")) {
-        closePopup();
-    }
-}
+const closeByOverlay = (popup) => {
+    popup.addEventListener("mousedown", (evt) => {
+        const eventTarget = evt.target;
 
-const closeByButton = (evt) => {
-    if (evt.target.classList.contains("popup__close-btn")) {
-        closePopup();
-    }
+        if (eventTarget.classList.contains("popup")) {
+            closePopup(popup);
+        }
+    });
 }
 
 // Edit profile popup:
@@ -90,17 +80,16 @@ const openEditPopup = () => {
 
     userNameInput.value = profileName.textContent;
     userStatusInput.value = profileStatus.textContent;
-
-    document.addEventListener('submit', submitEditPopup);
 }
+
+buttonEdit.addEventListener("click", openEditPopup);
 
 const closeEditPopup = () => {
-    closeOpenedPopup(popupEdit);
-
-    buttonEdit.addEventListener("click", openEditPopup);
+    closePopup(popupEdit);
 }
 
-closeEditPopup();
+popupEditCloseBtn.addEventListener("click", closeEditPopup);
+closeByOverlay(popupEdit);
 
 const submitEditPopup = (evt) => {
     evt.preventDefault();
@@ -108,8 +97,10 @@ const submitEditPopup = (evt) => {
     profileName.textContent = userNameInput.value;
     profileStatus.textContent = userStatusInput.value;
 
-    closeOpenedPopup(popupEdit);
+    closePopup(popupEdit);
 }
+
+popupEditForm.addEventListener("submit", submitEditPopup);
 
 // Add picture popup:
 
@@ -118,16 +109,19 @@ const openAddCardPopup = () => {
 
     popupAddCardForm.reset();
 
-    popupAddCardForm.addEventListener("submit", handleCardFormSubmit);
+    popupSubmitCardForm.setAttribute("disabled", "");
+    popupSubmitCardForm.classList.add("popup__submit_inactive");
 }
+
+buttonAdd.addEventListener("click", openAddCardPopup);
+closeByOverlay(popupAddCard);
 
 const closeAddCardPopup = () => {
-    closeOpenedPopup(popupAddCard);
-
-    buttonAdd.addEventListener("click", openAddCardPopup);
+    closePopup(popupAddCard);
 }
 
-closeAddCardPopup();
+popupCardCloseBtn.addEventListener("click", closeAddCardPopup);
+
 
 // Card Like:
 
@@ -178,6 +172,8 @@ const handleCardFormSubmit = (evt) => {
     closeAddCardPopup();
 }
 
+popupAddCardForm.addEventListener("submit", handleCardFormSubmit);
+
 // Initial cards creation: 
 
 initialCards.forEach(function(item) {
@@ -200,5 +196,8 @@ const handlePreviewPicture = (name, link) => {
 }
 
 const closeZoomCardPopup = () => {
-    closeOpenedPopup(popupZoomCard);
+    closePopup(popupZoomCard);
 }
+
+popupZoomCardCloseBtn.addEventListener("click", closeZoomCardPopup);
+closeByOverlay(popupZoomCard);
