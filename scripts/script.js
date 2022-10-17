@@ -97,7 +97,7 @@ const submitEditPopup = (evt) => {
     profileName.textContent = userNameInput.value;
     profileStatus.textContent = userStatusInput.value;
 
-    closePopup(popupEdit);
+    closeEditPopup();
 }
 
 popupEditForm.addEventListener("submit", submitEditPopup);
@@ -109,8 +109,7 @@ const openAddCardPopup = () => {
 
     popupAddCardForm.reset();
 
-    popupSubmitCardForm.setAttribute("disabled", "");
-    popupSubmitCardForm.classList.add("popup__submit_inactive");
+    resetError(popupAddCard);
 }
 
 buttonAdd.addEventListener("click", openAddCardPopup);
