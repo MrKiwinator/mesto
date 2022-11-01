@@ -1,5 +1,9 @@
 "use strict"
 
+import Card from "./Card.js";
+import initialCards from "./cards.js";
+import FormValidator from "./FormValidator.js";
+
 // VARIABLES:
 
 //Profile:
@@ -25,12 +29,10 @@ const buttonAdd = profile.querySelector(".profile__add-button");
 const popupAddCard = document.querySelector(".add-picture");
 const popupCardCloseBtn = popupAddCard.querySelector(".popup__close-btn");
 const popupAddCardForm = popupAddCard.querySelector(".popup__form");
-const popupSubmitCardForm = popupAddCard.querySelector(".popup__submit");
 
 const pictureName = popupAddCard.querySelector(".popup__input_type_picture-name");
 const pictureLink = popupAddCard.querySelector(".popup__input_type_picture-link");
 
-const cardTemplate = document.querySelector("#card-template").content;
 const cardContainer = document.querySelector(".elements");
 
 const popupZoomCard = document.querySelector(".zoom-card");
@@ -38,7 +40,25 @@ const popupZoomCardCloseBtn = popupZoomCard.querySelector(".popup__close-btn");
 
 const cardImages = document.querySelectorAll(".element__picture");
 
+// Validation settings:
+
+const settings = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit',
+    inactiveButtonClass: 'popup__submit_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_active'
+}
+
 // FUNCTIONS:
+
+// Forms validation: 
+const editForm = new FormValidator(settings, popupEditForm);
+const addCardForm = new FormValidator(settings, popupAddCardForm);
+
+editForm.enableValidation();
+addCardForm.enableValidation();
 
 // Opening popup:
 
@@ -80,6 +100,8 @@ const openEditPopup = () => {
 
     userNameInput.value = profileName.textContent;
     userStatusInput.value = profileStatus.textContent;
+
+    editForm.resetError();
 }
 
 buttonEdit.addEventListener("click", openEditPopup);
@@ -109,7 +131,7 @@ const openAddCardPopup = () => {
 
     popupAddCardForm.reset();
 
-    resetError(popupAddCard);
+    addCardForm.resetError();
 }
 
 buttonAdd.addEventListener("click", openAddCardPopup);
@@ -121,52 +143,12 @@ const closeAddCardPopup = () => {
 
 popupCardCloseBtn.addEventListener("click", closeAddCardPopup);
 
-
-// Card Like:
-
-const handleLikeIcon = (evt) => {
-    const eventTarget = evt.target;
-
-    eventTarget.classList.toggle("element__like_active");
-};
-
-// Card deletion:
-
-const handleDeleteCard = (evt) => {
-    const eventTarget = evt.target;
-    
-    eventTarget.closest(".element").remove();
-};
-
-// Card creation:
-
-const createCard = (name, link) => {
-    const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
-
-    const pictureElement = cardElement.querySelector(".element__picture");
-    const picturePlace = cardElement.querySelector(".element__place");
-
-    pictureElement.src = link;
-    pictureElement.alt = name;
-    picturePlace.textContent = name;
-
-    const likeButton = cardElement.querySelector('.element__like');
-    const deleteButton = cardElement.querySelector('.element__delete');
-    const cardImage = cardElement.querySelector('.element__picture');
-
-    likeButton.addEventListener('click', handleLikeIcon);
-    deleteButton.addEventListener('click', handleDeleteCard);
-    cardImage.addEventListener('click', () => handlePreviewPicture(name, link));
-
-    return cardElement;
-}
-
 const handleCardFormSubmit = (evt) => {
     evt.preventDefault();
 
-    const card = createCard(pictureName.value, pictureLink.value);
+    const card = new Card(pictureName.value, pictureLink.value, "#card-template");
 
-    cardContainer.prepend(card);
+    cardContainer.prepend(card.createCard());
 
     closeAddCardPopup();
 }
@@ -176,13 +158,13 @@ popupAddCardForm.addEventListener("submit", handleCardFormSubmit);
 // Initial cards creation: 
 
 initialCards.forEach(function(item) {
-    const card = createCard(item.name, item.link);
-    cardContainer.append(card);
+    const card = new Card(item.name, item.link, "#card-template");
+    cardContainer.append(card.createCard());
 });
 
 // Zoom card popup:
 
-const handlePreviewPicture = (name, link) => {
+export const handlePreviewPicture = (name, link) => {
 
     const popupZoomImg = popupZoomCard.querySelector(".popup__image");
     const popupZoomCaption = popupZoomCard.querySelector(".popup__caption");
