@@ -1,6 +1,6 @@
 "use strict"
 
-import {handlePreviewPicture} from "./index.js";
+import { handlePreviewPicture } from "./utils.js";
 
 export default class Card {
     constructor (name, link, templateSelector) {
@@ -21,8 +21,10 @@ export default class Card {
         this._element = this._getTemplate();
         this._setEventListeners();
 
-        this._element.querySelector(".element__picture").src = this._link;
-        this._element.querySelector(".element__picture").alt = this._name;
+        const elementPicture = this._element.querySelector(".element__picture");
+
+        elementPicture.src = this._link;
+        elementPicture.alt = this._name;
         this._element.querySelector(".element__place").textContent = this._name;
 
         return this._element;
@@ -37,9 +39,7 @@ export default class Card {
 
     // Card deletion:
     _handleDeleteCard () {
-        this._element.querySelector(".element__delete")
-        .closest(".element")
-        .remove();
+        this._element.remove();
     }
 
     // Card event listeners:
