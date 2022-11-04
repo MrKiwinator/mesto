@@ -3,7 +3,7 @@
 import Card from "./Card.js";
 import initialCards from "./cards.js";
 import FormValidator from "./FormValidator.js";
-import { openPopup, closePopup, closeByOverlay, closeZoomCardPopup, popupZoomCard } from "./utils.js";
+import { previewCardPopup, openPopup, closePopup, closeByOverlay, closePreviewPicture } from "./utils.js";
 
 // VARIABLES:
 
@@ -36,10 +36,7 @@ const pictureLink = popupAddCard.querySelector(".popup__input_type_picture-link"
 
 const cardContainer = document.querySelector(".elements");
 
-
-const popupZoomCardCloseBtn = popupZoomCard.querySelector(".popup__close-btn");
-
-const cardImages = document.querySelectorAll(".element__picture");
+const previewCardBtn = previewCardPopup.querySelector(".popup__close-btn");
 
 // Validation settings:
 
@@ -60,7 +57,6 @@ const addCardForm = new FormValidator(settings, popupAddCardForm);
 
 editForm.enableValidation();
 addCardForm.enableValidation();
-
 
 // Edit profile popup:
 
@@ -133,5 +129,5 @@ initialCards.forEach(function(item) {
 
 // Zoom card popup:
 
-popupZoomCardCloseBtn.addEventListener("click", closeZoomCardPopup);
-closeByOverlay(popupZoomCard);
+previewCardBtn.addEventListener("click", closePreviewPicture);
+closeByOverlay(previewCardPopup);

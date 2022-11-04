@@ -1,8 +1,8 @@
 "use strict"
 
-export { popupZoomCard, openPopup, closePopup, closeByEsc, closeByOverlay, handlePreviewPicture, closeZoomCardPopup }
+export { previewCardPopup, openPopup, closePopup, closeByOverlay, handlePreviewPicture, closePreviewPicture };
 
-const popupZoomCard = document.querySelector(".zoom-card");
+const previewCardPopup = document.querySelector(".zoom-card");
 
 // Opening popup:
 
@@ -25,7 +25,7 @@ const closeByEsc = (evt) => {
         const openedPopup = document.querySelector('.popup_opened');
         closePopup(openedPopup);
     }
-}  
+}
 
 const closeByOverlay = (popup) => {
     popup.addEventListener("mousedown", (evt) => {
@@ -41,16 +41,16 @@ const closeByOverlay = (popup) => {
 
 const handlePreviewPicture = (name, link) => {
 
-    const popupZoomImg = popupZoomCard.querySelector(".popup__image");
-    const popupZoomCaption = popupZoomCard.querySelector(".popup__caption");
+    const previewImg = previewCardPopup.querySelector(".popup__image");
+    const previewCaption = previewCardPopup.querySelector(".popup__caption");
 
-    popupZoomImg.src = link;
-    popupZoomImg.alt = name;
-    popupZoomCaption.textContent = name;
+    previewImg.src = link;
+    previewImg.alt = name;
+    previewCaption.textContent = name;
 
-    openPopup(popupZoomCard);
+    openPopup(previewCardPopup);
 }
 
-const closeZoomCardPopup = () => {
-    closePopup(popupZoomCard);
+const closePreviewPicture = () => {
+    closePopup(previewCardPopup);
 }
