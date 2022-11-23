@@ -1,5 +1,6 @@
 "use strict"
 
+import './index.css';
 import { 
     buttonEdit, 
     popupEditForm, 
