@@ -1,12 +1,13 @@
 "use strict"
 
-import { handlePreviewPicture } from "./utils.js";
+// import { handlePreviewPicture } from "./utils.js";
 
 export default class Card {
-    constructor (name, link, templateSelector) {
+    constructor (name, link, templateSelector, { handleCardClick }) {
         this._name = name;
         this._link = link;
         this._templateSelector = templateSelector;
+        this._handleCardClick = handleCardClick;
     }
 
     // Function return card template:
@@ -55,7 +56,7 @@ export default class Card {
         });
         this._element.querySelector(".element__picture")
         .addEventListener("click", () => {
-            handlePreviewPicture(this._name, this._link);
+            this._handleCardClick(this._name, this._link);
         });
     }
 }
