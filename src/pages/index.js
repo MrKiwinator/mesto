@@ -26,6 +26,11 @@ const addCardForm = new FormValidator(settings, popupAddCardForm);
 editForm.enableValidation();
 addCardForm.enableValidation();
 
+// Preview popup:
+
+const previewPopup = new PopupWithImage(".zoom-card");
+previewPopup.setEventListeners();
+
 // Initial cards creation:
 
 const cardList = new Section(
@@ -39,9 +44,7 @@ const cardList = new Section(
                 {
                     // Preview card popup: 
                     handleCardClick: () => { 
-                        const previewPopup = new PopupWithImage(".zoom-card");
                         previewPopup.open(cardData.name, cardData.link);
-                        previewPopup.setEventListeners();
                     }
                 }
             )
@@ -93,9 +96,7 @@ const addCardPopup = new PopupWithForm (
                 {
                     // Preview card popup: 
                     handleCardClick: () => { 
-                        const previewPopup = new PopupWithImage(".zoom-card");
                         previewPopup.open(cardData.picture_name, cardData.picture_link);
-                        previewPopup.setEventListeners();
                     }
                 }
             )

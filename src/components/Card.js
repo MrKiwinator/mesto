@@ -41,6 +41,7 @@ export default class Card {
     // Card deletion:
     _handleDeleteCard () {
         this._element.remove();
+        this._element = null;
     }
 
     // Card event listeners:
