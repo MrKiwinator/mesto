@@ -1,7 +1,5 @@
 "use strict"
 
-// import { handlePreviewPicture } from "./utils.js";
-
 export default class Card {
     constructor (name, link, templateSelector, { handleCardClick }) {
         this._name = name;
