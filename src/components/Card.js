@@ -86,8 +86,7 @@ export default class Card {
         }
     }
 
-    // Card event listeners:
-    _setEventListeners () {
+    _setEventListeners () { // Card event listeners:
         this._element.querySelector(".element__like")
         .addEventListener("click", () => {
             this._handleLikeClick(this._element);

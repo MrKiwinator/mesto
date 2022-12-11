@@ -26,6 +26,7 @@ export default class Api {
             body: JSON.stringify({
                 name: userData.user_name,
                 about: userData.user_status,
+                avatar: userData.user_avatar
             })
         })
             .then(this._checkResponse)

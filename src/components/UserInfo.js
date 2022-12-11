@@ -14,7 +14,6 @@ export default class UserInfo {
 
         this._userData.name = this._name.textContent;
         this._userData.status = this._status.textContent;
-        this._userData.avatar = this._avatar.src;
 
         return this._userData;
     }

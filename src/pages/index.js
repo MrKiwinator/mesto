@@ -43,11 +43,6 @@ const api = new Api({
     }
 });
 
-console.log("Карточки");
-console.log(Promise.resolve(api.getCards()).then(res => {return res}));
-console.log("Пользователь")
-console.log(Promise.resolve(api.getUserInfo()).then(res => {return res}))
-
 // API requests:
 
 let userId; // Creating variable for current user ID
@@ -59,10 +54,16 @@ Promise.all([api.getUserInfo(), api.getCards()])
         userInfo.setUserInfo(user.name, user.about);
         userInfo.setUserAvatar(user.avatar);
         // Rendering initial cards:
-        cardList.renderItems(cards.reverse())
-        console.log(cards);
+        cardList.renderItems(cards.reverse());
     })
     .catch((err) => console.log(err))
+
+
+
+
+    // ====== CARDS ======
+
+// Creating card instance:
 
 const createCard = (cardData) => {
     const card = new Card (
@@ -72,6 +73,7 @@ const createCard = (cardData) => {
             handleCardClick: () => { 
                 previewPopup.open(cardData.name, cardData.link);
             },
+            // Card like:
             handleLikeClick: () => {
                 card.handleLikeBtn(
                     api.setLike(cardData._id)
@@ -80,6 +82,7 @@ const createCard = (cardData) => {
                         .catch((err) => console.log(err))
                     )
             },
+            // Card deletion:
             handleDeleteClick: (id) => {
                 confirmPopup.open();
                 confirmPopup.changeSubmitHandler(() => {
@@ -142,6 +145,22 @@ buttonAdd.addEventListener("click", () => {
 
 addCardPopup.setEventListeners();
 
+// Preview popup:
+
+const previewPopup = new PopupWithImage(".zoom-card");
+previewPopup.setEventListeners();
+
+// Confirm card deletion popup:
+
+const confirmPopup = new PopupWithSubmit(".delete-image")
+
+confirmPopup.setEventListeners();
+
+
+
+
+    // ====== USER INFO ======
+
 // Information about user:
 
 const userInfo = new UserInfo (".profile__name", ".profile__status", ".profile__avatar");
@@ -153,11 +172,10 @@ const editUserInfoPopup = new PopupWithForm (
     {
         handleFormSubmit: (userData) => {
             editUserInfoPopup.renderLoading(true)
-            console.log(userData)
+            
             api.setUserInfo(userData)
                 .then((res) => {
-                    console.log(res);
-                    userInfo.setUserInfo(res.name, res.about);
+                    userInfo.setUserInfo(res.name, res.about, res.avatar);
                     editUserInfoPopup.close();
                 })
                 .catch((err) => console.log(err))
@@ -167,8 +185,6 @@ const editUserInfoPopup = new PopupWithForm (
         }
     }
 )
-
-
 
 buttonEdit.addEventListener("click", () => {
     const currentUserInfo = userInfo.getUserInfo();
@@ -188,6 +204,7 @@ const editUserAvatarPopup = new PopupWithForm (
     {
         handleFormSubmit: (avatarData) => {
             editUserAvatarPopup.renderLoading(true);
+            
             api.setUserAvatar(avatarData.user_avatar)
                 .then((res) => {
                     userInfo.setUserAvatar(res.avatar)
@@ -209,17 +226,6 @@ buttonAvatar.addEventListener("click", () => {
 })
 
 editUserAvatarPopup.setEventListeners();
-
-// Preview popup:
-
-const previewPopup = new PopupWithImage(".zoom-card");
-previewPopup.setEventListeners();
-
-// Confirm card deletion popup:
-
-const confirmPopup = new PopupWithSubmit(".delete-image")
-
-confirmPopup.setEventListeners();
 
 
 
