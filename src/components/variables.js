@@ -9,10 +9,17 @@ export const profile = document.querySelector(".profile");
 export const buttonEdit = profile.querySelector(".profile__edit-button");
 
 export const popupEdit = document.querySelector(".edit-profile");
-
 export const popupEditForm = popupEdit.querySelector(".popup__form");
+
 export const userNameInput = popupEdit.querySelector(".popup__input_type_username");
 export const userStatusInput = popupEdit.querySelector(".popup__input_type_userstatus");
+
+export const buttonAvatar = profile.querySelector(".profile__edit-avatar-btn")
+
+export const popupAvatar = document.querySelector(".edit-avatar");
+export const popupAvatarForm = popupAvatar.querySelector(".popup__form");
+
+export const avatarLinkInput = popupAvatar.querySelector(".popup__input_type_picture-link");
 
 //Card variables:
 

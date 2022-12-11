@@ -1,11 +1,19 @@
 "use strict"
 
+import { data } from "autoprefixer";
+
 export default class Card {
-    constructor (name, link, templateSelector, { handleCardClick }) {
-        this._name = name;
-        this._link = link;
+    constructor ({ data, handleCardClick, handleLikeClick, handleDeleteClick }, templateSelector, userId) {
+        this._data = data;
+        this._likes = data.likes;
+        this._id = data._id;
         this._templateSelector = templateSelector;
         this._handleCardClick = handleCardClick;
+        this._handleLikeClick = handleLikeClick;
+        this._handleDeleteClick = handleDeleteClick;
+        this._userId = userId;
+        // this._handleAddLike = handleAddLike;
+        // this._handleDeleteLike = handleDeleteLike;
     }
 
     // Function return card template:
@@ -17,45 +25,81 @@ export default class Card {
 
     // Card creation:
     createCard () {
+    
         this._element = this._getTemplate();
         this._setEventListeners();
 
         const elementPicture = this._element.querySelector(".element__picture");
+        
+        elementPicture.src = this._data.link;
+        elementPicture.alt = this._data.name;
+        this._element.querySelector(".element__place").textContent = this._data.name;
 
-        elementPicture.src = this._link;
-        elementPicture.alt = this._name;
-        this._element.querySelector(".element__place").textContent = this._name;
+        this._countLikes();
+        this._handleUserCardLike();
+        this._handleCardDelIcon();
 
         return this._element;
     }
 
-    // Like handler:
-    _handleLikeCard () {
-        this._element.querySelector(".element__like")
-        .classList
-        .toggle("element__like_active");
+    handleLikeBtn(setLikeOnServer, delLikeOnServer) {
+        const likeBtn = this._element.querySelector(".element__like");
+        const likeCounter = this._element.querySelector(".element__like-counter");
+
+        if(!likeBtn.classList.contains("element__like_active")) {
+            setLikeOnServer;
+            likeBtn.classList.add("element__like_active");
+            likeCounter.textContent++;
+        } else {
+            delLikeOnServer;
+            likeBtn.classList.remove("element__like_active");
+            likeCounter.textContent--;
+        }
     }
 
-    // Card deletion:
-    _handleDeleteCard () {
+    deleteCard () {
         this._element.remove();
         this._element = null;
+    }
+
+    _countLikes () { // Counting the amount of likes
+        const likeCounter = this._element.querySelector(".element__like-counter");
+
+        likeCounter.textContent = this._likes.length;
+    }
+
+    _handleUserCardLike () { // Check if current user already liked the card
+        this._likes.forEach((like) => {
+            if (this._userId === like._id) {
+                const likeBtn = this._element.querySelector(".element__like");
+
+                likeBtn.classList.add("element__like_active");
+            }
+        })
+    }
+
+    _handleCardDelIcon () { // Show del icon only on current user
+        const delIconElement = this._element.querySelector(".element__delete")
+
+        if (!(this._userId === this._data.owner._id)) {
+            delIconElement.remove();
+        }
     }
 
     // Card event listeners:
     _setEventListeners () {
         this._element.querySelector(".element__like")
         .addEventListener("click", () => {
-            this._handleLikeCard();
+            this._handleLikeClick(this._element);
         });
 
         this._element.querySelector(".element__delete")
         .addEventListener("click", () => {
-            this._handleDeleteCard();
+            this._handleDeleteClick(this._id);
         });
         this._element.querySelector(".element__picture")
         .addEventListener("click", () => {
-            this._handleCardClick(this._name, this._link);
+            this._handleCardClick(this._data.name, this._data.link); 
         });
     }
 }

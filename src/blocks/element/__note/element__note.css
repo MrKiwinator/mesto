@@ -1,6 +1,7 @@
 .element__note {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    padding: 25px 20px;
+    align-items: center;
+    column-gap: 25px;
+    padding: 22px 20px;
 }
