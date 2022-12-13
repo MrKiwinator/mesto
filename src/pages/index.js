@@ -23,7 +23,7 @@ import PopupWithSubmit from '../components/PopupWithSubmit';
 import UserInfo from "../components/UserInfo.js";
 import { data } from 'autoprefixer';
 
-// Forms validation: 
+    // ====== FORM VALIDATIONS ====== 
 
 const editForm = new FormValidator(settings, popupEditForm);
 const avatarForm = new FormValidator(settings, popupAvatarForm)
@@ -33,7 +33,10 @@ editForm.enableValidation();
 avatarForm.enableValidation();
 addCardForm.enableValidation();
 
-// API
+
+
+
+    // ====== API ======
 
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-55',
@@ -76,12 +79,12 @@ const createCard = (cardData) => {
             // Card like:
             handleLikeClick: () => {
                 card.handleLikeBtn ( 
-                    () => {
+                    () => { // Set Like
                         api.setLike(cardData._id)
                             .then((res) => card.addLike(res))
                             .catch((err) => console.log(err))
                     },
-                    () => {
+                    () => { // Remove like
                         api.deleteLike(cardData._id)
                             .then((res) => card.removeLike(res))
                             .catch((err) => console.log(err))
