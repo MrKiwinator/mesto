@@ -1,8 +1,6 @@
 export default class Popup {
     constructor (popupSelector) {
         this._popup = document.querySelector(popupSelector);
-
-        this._popupForm = this._popup.querySelector('.popup__form');
     }
 
     open () {
@@ -31,16 +29,5 @@ export default class Popup {
                 this.close();
             }
         });
-    }
-
-    renderLoading (isLoading) {
-        const popupBtn = this._popupForm.querySelector('.popup__submit');
-        const popupBtnText = "Coхранить";
-
-        if (isLoading) {
-            popupBtn.textContent = "Coхранение..."
-        } else {
-            popupBtn.textContent = popupBtnText;
-        }
     }
 }

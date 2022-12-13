@@ -12,8 +12,10 @@ export default class Card {
         this._handleLikeClick = handleLikeClick;
         this._handleDeleteClick = handleDeleteClick;
         this._userId = userId;
-        // this._handleAddLike = handleAddLike;
-        // this._handleDeleteLike = handleDeleteLike;
+    }
+
+    likeBtn () {
+        console.log(this._likeBtn);
     }
 
     // Function return card template:
@@ -27,12 +29,16 @@ export default class Card {
     createCard () {
     
         this._element = this._getTemplate();
-        this._setEventListeners();
-
-        const elementPicture = this._element.querySelector(".element__picture");
         
-        elementPicture.src = this._data.link;
-        elementPicture.alt = this._data.name;
+        this._elementPicture = this._element.querySelector(".element__picture");
+        this._likeBtn = this._element.querySelector(".element__like");
+        this._likeCounter = this._element.querySelector(".element__like-counter");
+        this._delIconElement = this._element.querySelector(".element__delete")
+
+        this._setEventListeners();
+        
+        this._elementPicture.src = this._data.link;
+        this._elementPicture.alt = this._data.name;
         this._element.querySelector(".element__place").textContent = this._data.name;
 
         this._countLikes();
@@ -43,18 +49,21 @@ export default class Card {
     }
 
     handleLikeBtn(setLikeOnServer, delLikeOnServer) {
-        const likeBtn = this._element.querySelector(".element__like");
-        const likeCounter = this._element.querySelector(".element__like-counter");
-
-        if(!likeBtn.classList.contains("element__like_active")) {
+        if(!this._likeBtn.classList.contains("element__like_active")) {
             setLikeOnServer;
-            likeBtn.classList.add("element__like_active");
-            likeCounter.textContent++;
         } else {
             delLikeOnServer;
-            likeBtn.classList.remove("element__like_active");
-            likeCounter.textContent--;
         }
+    }
+
+    addLike (res) {
+        this._likeBtn.classList.add("element__like_active");
+        this._likeCounter.textContent = res.likes.length;
+    }
+
+    removeLike (res) {
+        this._likeBtn.classList.remove("element__like_active");
+        this._likeCounter.textContent = res.likes.length;
     }
 
     deleteCard () {
@@ -63,26 +72,21 @@ export default class Card {
     }
 
     _countLikes () { // Counting the amount of likes
-        const likeCounter = this._element.querySelector(".element__like-counter");
-
-        likeCounter.textContent = this._likes.length;
+        this._likeCounter.textContent = this._likes.length;
     }
 
     _handleUserCardLike () { // Check if current user already liked the card
         this._likes.forEach((like) => {
             if (this._userId === like._id) {
-                const likeBtn = this._element.querySelector(".element__like");
-
-                likeBtn.classList.add("element__like_active");
+                this._likeBtn.classList.add("element__like_active");
             }
         })
     }
 
     _handleCardDelIcon () { // Show del icon only on current user
-        const delIconElement = this._element.querySelector(".element__delete")
 
         if (!(this._userId === this._data.owner._id)) {
-            delIconElement.remove();
+            this._delIconElement.remove();
         }
     }
 

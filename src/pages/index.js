@@ -77,8 +77,10 @@ const createCard = (cardData) => {
             handleLikeClick: () => {
                 card.handleLikeBtn(
                     api.setLike(cardData._id)
+                        .then((res) => {card.addLike(res)})
                         .catch((err) => console.log(err)),
                     api.deleteLike(cardData._id)
+                        .then((res) => {card.removeLike(res)})
                         .catch((err) => console.log(err))
                     )
             },

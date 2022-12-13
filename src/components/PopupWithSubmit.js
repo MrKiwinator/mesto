@@ -5,7 +5,8 @@ export default class PopupWithSubmit extends Popup {
         super (popupSelector);
 
         this._handleDeleteSubmit = handleDeleteSubmit;
-        this._popupForm = this._popup.querySelector('.popup__form'); 
+        this._popupForm = this._popup.querySelector('.popup__form');
+        this._popupBtn = this._popupForm.querySelector('.popup__submit');
     }
 
     changeSubmitHandler(newSubmitHandler) {
@@ -23,13 +24,12 @@ export default class PopupWithSubmit extends Popup {
     }
 
     renderLoading (isLoading) {
-        const popupBtn = this._popupForm.querySelector('.popup__submit');
         const popupBtnText = "Да";
 
         if (isLoading) {
-            popupBtn.textContent = "Удаляем..."
+            this._popupBtn.textContent = "Удаляем..."
         } else {
-            popupBtn.textContent = popupBtnText;
+            this._popupBtn.textContent = popupBtnText;
         }
     }
 }
