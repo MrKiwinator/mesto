@@ -14,10 +14,6 @@ export default class Card {
         this._userId = userId;
     }
 
-    likeBtn () {
-        console.log(this._likeBtn);
-    }
-
     // Function return card template:
     _getTemplate () { 
         const cardTemplate = document.querySelector(this._templateSelector).content.querySelector(".element").cloneNode(true);
@@ -50,9 +46,9 @@ export default class Card {
 
     handleLikeBtn(setLikeOnServer, delLikeOnServer) {
         if(!this._likeBtn.classList.contains("element__like_active")) {
-            setLikeOnServer;
+            setLikeOnServer();
         } else {
-            delLikeOnServer;
+            delLikeOnServer();
         }
     }
 

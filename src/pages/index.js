@@ -75,14 +75,18 @@ const createCard = (cardData) => {
             },
             // Card like:
             handleLikeClick: () => {
-                card.handleLikeBtn(
-                    api.setLike(cardData._id)
-                        .then((res) => {card.addLike(res)})
-                        .catch((err) => console.log(err)),
-                    api.deleteLike(cardData._id)
-                        .then((res) => {card.removeLike(res)})
-                        .catch((err) => console.log(err))
-                    )
+                card.handleLikeBtn ( 
+                    () => {
+                        api.setLike(cardData._id)
+                            .then((res) => card.addLike(res))
+                            .catch((err) => console.log(err))
+                    },
+                    () => {
+                        api.deleteLike(cardData._id)
+                            .then((res) => card.removeLike(res))
+                            .catch((err) => console.log(err))
+                    }
+                )
             },
             // Card deletion:
             handleDeleteClick: (id) => {
